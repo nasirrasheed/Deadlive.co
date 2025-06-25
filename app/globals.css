@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000000;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+.fog-effect {
+  background: linear-gradient(45deg, rgba(75, 0, 130, 0.3), rgba(139, 69, 19, 0.2), rgba(0, 0, 0, 0.8));
+  backdrop-filter: blur(1px);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(218, 165, 32, 0.5), 0 0 20px rgba(218, 165, 32, 0.3);
+}
+
+.candle-glow {
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.4), 0 0 40px rgba(255, 140, 0, 0.2);
+}
+
+.ghost-fade {
+  animation: ghostFade 3s ease-in-out infinite alternate;
+}
+
+@keyframes ghostFade {
+  0% { opacity: 0.7; transform: translateY(0px); }
+  100% { opacity: 1; transform: translateY(-5px); }
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 25px rgba(218, 165, 32, 0.6);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+.mystical-border {
+  border: 1px solid rgba(218, 165, 32, 0.3);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(75, 0, 130, 0.1));
+}
+
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(218, 165, 32, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(218, 165, 32, 0.8);
+}
