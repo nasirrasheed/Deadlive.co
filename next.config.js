@@ -5,10 +5,25 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.pexels.com',
-        port: '', // leave empty unless using a custom port
-        pathname: '/**', // allow all paths
       },
     ],
+    minimumCacheTTL: 60,
+  },
+  reactStrictMode: true,
+  transpilePackages: ['@components', '@lib'],
+  // REMOVED deprecated experimental options
+  serverExternalPackages: ['sharp', 'mongoose', '@supabase/supabase-js'],
+  swcMinify: true, // ENABLED minification
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  webpack: (config) => {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      '@solana/wallet-standard-features': false
+    };
+    // REMOVED minification disable
+    return config;
   },
 };
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import LoadingSpinner from '@/components/admin/LoadingSpinner'
@@ -9,31 +9,48 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isSignUp, setIsSignUp] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [formLoading, setFormLoading] = useState(false)
   const [error, setError] = useState('')
   
-  const { signIn, signUp } = useAuth()
-  const router = useRouter()
+  const { user, loading: authLoading, signIn, signUp } = useAuth();
+  const router = useRouter();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!authLoading && user) {
+      router.push('/admin');
+    }
+  }, [user, authLoading, router]);
+
+  // Show loading only while auth state is being checked
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
+    setFormLoading(true)
     setError('')
 
     try {
-      const { error } = isSignUp 
+      const result = isSignUp 
         ? await signUp(email, password)
         : await signIn(email, password)
 
-      if (error) {
-        setError(error.message)
+      if (result.error) {
+        setError(result.error.message || 'Authentication failed')
       } else {
         router.push('/admin')
       }
     } catch (err) {
       setError('An unexpected error occurred')
+      console.error(err)
     } finally {
-      setLoading(false)
+      setFormLoading(false)
     }
   }
 
@@ -90,10 +107,10 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={formLoading}
             className="w-full bg-faded-gold text-black py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
           >
-            {loading ? (
+            {formLoading ? (
               <LoadingSpinner />
             ) : (
               isSignUp ? 'Create Account' : 'Sign In'

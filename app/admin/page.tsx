@@ -3,7 +3,25 @@
 import { useAuth } from '@/hooks/useAuth'
 
 export default function AdminDashboard() {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
+
+  // Show loading spinner
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-black text-white">
+        <div className="text-lg">Loading dashboard...</div>
+      </div>
+    )
+  }
+
+  // Show message if user is not authenticated
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-black text-white">
+        <div className="text-lg">Please sign in to access the dashboard.</div>
+      </div>
+    )
+  }
 
   const stats = [
     { name: 'Total Events', value: '24', change: '+12%', icon: '🎭' },
@@ -23,10 +41,10 @@ export default function AdminDashboard() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-white mb-2">
-          Welcome back, {user?.email?.split('@')[0]}!
+          Welcome back, {user.email?.split('@')[0]}!
         </h1>
         <p className="text-gray-400">
-          Here&aposs what&aposs happening with your paranormal business today.
+          Here&apos;s what&apos;s happening with your paranormal business today.
         </p>
       </div>
 

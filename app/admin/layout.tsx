@@ -1,23 +1,32 @@
-import AuthGuard from '@/components/admin/AuthGuard'
-import Sidebar from '@/components/admin/Sidebar'
-import Header from '@/components/admin/Header'
+'use client';
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <AuthGuard>
-      <div className="flex h-screen bg-gray-900">
-        <Sidebar />
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <Header />
-          <main className="flex-1 overflow-y-auto p-6">
-            {children}
-          </main>
-        </div>
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import LoadingSpinner from '@/components/admin/LoadingSpinner';
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    // Only redirect after initial auth check completes
+    if (!loading) {
+      setInitialized(true);
+      if (!user) {
+        router.push('/admin/login');
+      }
+    }
+  }, [user, loading, router]);
+
+  if (loading || !initialized) {
+    return (
+      <div className="min-h-screen flex justify-center items-center bg-black">
+        <LoadingSpinner />
       </div>
-    </AuthGuard>
-  )
+    );
+  }
+
+  return <div>{children}</div>;
 }

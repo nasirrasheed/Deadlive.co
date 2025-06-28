@@ -45,14 +45,17 @@ export default function About() {
 
           <div className="relative">
             <div className="relative h-96 rounded-lg overflow-hidden mystical-border">
-              <Image 
-                src="https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
-                alt="DeadLive team investigation"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg"
-                priority
-              />
+            <div className="relative w-full h-full rounded-lg"> {/* Add this wrapper div */}
+  <Image 
+    src="https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg"
+    alt="DeadLive team investigation"
+    fill
+    style={{ objectFit: 'cover' }}
+    className="rounded-lg"
+    priority
+    sizes="(max-width: 768px) 100vw, 100vw"
+  />
+</div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             </div>
 
