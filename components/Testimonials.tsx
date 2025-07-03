@@ -1,42 +1,28 @@
 'use client';
 
 import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
-const testimonials = [
-  {
-    id: 1,
-    quote: "The most incredible experience of my life! The team at DeadLive made me feel safe while exploring the unknown. I'll never forget the voices we heard in the old chapel.",
-    name: "Sarah Mitchell",
-    location: "Manchester, UK",
-    image: "https://images.pexels.com/photos/3088369/pexels-photo-3088369.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
-  },
-  {
-    id: 2,
-    quote: "Professional, respectful, and absolutely thrilling. The psychic reading session gave me closure I'd been seeking for years. Highly recommend DeadLive to anyone curious about the paranormal.",
-    name: "James Thompson",
-    location: "London, UK",
-    image: "https://images.pexels.com/photos/3088369/pexels-photo-3088369.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
-  },
-  {
-    id: 3,
-    quote: "I was skeptical at first, but the evidence we captured during our investigation was undeniable. The team's expertise and genuine passion for the paranormal really shows.",
-    name: "Emma Roberts",
-    location: "Birmingham, UK",
-    image: "https://images.pexels.com/photos/3088369/pexels-photo-3088369.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
-  },
-  {
-    id: 4,
-    quote: "An unforgettable night at Edinburgh Castle! The historical context combined with the paranormal investigation made for an educational and spine-tingling experience.",
-    name: "David Wilson",
-    location: "Edinburgh, Scotland",
-    image: "https://images.pexels.com/photos/3088369/pexels-photo-3088369.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
-  }
-];
+interface Testimonial {
+  id: string;
+  quote: string;
+  name: string;
+  location: string;
+  image: string;
+}
 
-export default function Testimonials() {
+interface TestimonialsProps {
+  testimonials: Testimonial[];
+}
+
+export default function Testimonials({ testimonials }: TestimonialsProps) {
   return (
     <section className="py-20 bg-haunted-gradient">
       <div className="container mx-auto px-6">
+        {/* Heading */}
         <div className="text-center mb-16">
           <h2 className="font-cinzel text-4xl md:text-5xl font-bold mb-6 glow-text">
             What Our Guests Say
@@ -46,38 +32,55 @@ export default function Testimonials() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        {/* Swiper Slider */}
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          spaceBetween={30}
+          slidesPerView={1}
+          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          breakpoints={{
+            768: { slidesPerView: 2 }, // Show 2 on tablets and above
+          }}
+        >
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="mystical-border rounded-lg p-8 hover-glow transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    width={64}
-                    height={64}
-                    className="rounded-full object-cover border-2 border-faded-gold"
-                  />
-                </div>
-                <div className="flex-1">
-                  <div className="mb-4">
-                    <svg className="w-8 h-8 text-faded-gold mb-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                    </svg>
-                    <p className="text-gray-300 leading-relaxed italic">
-                      &quot;{testimonial.quote}&quot;
-                    </p>
+            <SwiperSlide key={testimonial.id}>
+              <div className="mystical-border rounded-lg p-8 hover-glow transition-all duration-300 h-full">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      width={64}
+                      height={64}
+                      className="rounded-full object-cover border-2 border-faded-gold"
+                    />
                   </div>
-                  <div>
-                    <p className="font-semibold text-white">{testimonial.name}</p>
-                    <p className="text-sm text-gray-400">{testimonial.location}</p>
+                  <div className="flex-1">
+                    <div className="mb-4">
+                      <svg className="w-8 h-8 text-faded-gold mb-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          fillRule="evenodd"
+                          d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <p className="text-gray-300 leading-relaxed italic">
+                        &quot;{testimonial.quote}&quot;
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">{testimonial.name}</p>
+                      <p className="text-sm text-gray-400">{testimonial.location}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
 
+        {/* Ratings */}
         <div className="text-center mt-12">
           <div className="flex items-center justify-center gap-2 text-faded-gold">
             <div className="flex gap-1">
