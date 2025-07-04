@@ -145,13 +145,13 @@ export default function AdminDashboard() {
         <h2 className="text-lg font-semibold text-white mb-4">Quick Links</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button 
-            onClick={() => navigateTo('/admin/events')}
+            onClick={() => navigateTo('/admin/events/add')}
             className="bg-gray-700 hover:bg-gray-600 text-white p-3 rounded-lg transition-colors"
           >
             View All Events
           </button>
           <button 
-            onClick={() => navigateTo('/admin/blog')}
+            onClick={() => navigateTo('/admin/blog/add')}
             className="bg-gray-700 hover:bg-gray-600 text-white p-3 rounded-lg transition-colors"
           >
             Manage Blog Posts

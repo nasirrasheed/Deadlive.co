@@ -32,24 +32,24 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-4 text-faded-gold">Navigation</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#home" className="hover:text-white transition-colors">Home</a></li>
-              <li><a href="#events" className="hover:text-white transition-colors">Events</a></li>
-              <li><a href="#journal" className="hover:text-white transition-colors">Journal</a></li>
-              <li><a href="#services" className="hover:text-white transition-colors">Services</a></li>
-              <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
-              <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+              <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
+              <li><a href="/events" className="hover:text-white transition-colors">Events</a></li>
+              <li><a href="/journal-section" className="hover:text-white transition-colors">Journal</a></li>
+              <li><a href="/services" className="hover:text-white transition-colors">Services</a></li>
+              <li><a href="/about" className="hover:text-white transition-colors">About</a></li>
+              <li><a href="/contact" className="hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold mb-4 text-faded-gold">Services</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">Ghost Hunts</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Psychic Nights</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Private Events</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Tarot Reading</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Reiki Healing</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Numerology</a></li>
+              <li><a href="events" className="hover:text-white transition-colors">Ghost Hunts</a></li>
+              <li><a href="events" className="hover:text-white transition-colors">Psychic Nights</a></li>
+              <li><a href="events" className="hover:text-white transition-colors">Private Events</a></li>
+              <li><a href="services" className="hover:text-white transition-colors">Tarot Reading</a></li>
+              <li><a href="services" className="hover:text-white transition-colors">Reiki Healing</a></li>
+              <li><a href="journal-section" className="hover:text-white transition-colors">Numerology</a></li>
             </ul>
           </div>
 
@@ -57,7 +57,8 @@ export default function Footer() {
             <h3 className="font-semibold mb-4 text-faded-gold">Contact Info</h3>
             <ul className="space-y-2 text-gray-400">
               <li>+44 20 7946 0958</li>
-              <li>hello@deadlive.co.uk</li>
+              <li>
+info@deadlive.co.uk</li>
               <li>London, United Kingdom</li>
             </ul>
           </div>
@@ -65,10 +66,10 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 DeadLive. All rights reserved.
+            © 2025 DeadLive. All rights reserved.
           </p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+            <a href="privacy-policy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
             <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
             <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">Cookie Policy</a>
           </div>

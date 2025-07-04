@@ -87,7 +87,7 @@ export default function EditBlogPage() {
       }
 
       const { error } = await supabase
-        .from('blogs')
+        .from('blog_posts')
         .update({
           title: formData.title,
           content: formData.content,
@@ -100,7 +100,7 @@ export default function EditBlogPage() {
         alert('Failed to update post')
       } else {
         alert('Post updated successfully!')
-        router.push('/admin/blog')
+        router.push('/admin/blog/add')
       }
     } catch (error: any) {
       console.error('Update error:', error)

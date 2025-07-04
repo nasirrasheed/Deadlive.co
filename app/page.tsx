@@ -1,11 +1,9 @@
 // app/page.tsx
-import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Journal from '@/components/Journal';
 import About from '@/components/About';
 import Testimonials from '@/components/Testimonials';
 import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
 import EventsSection from '@/components/EventsSection';
 import ServicesSection from '@/components/ServicesSection';
 
@@ -35,15 +33,13 @@ export default async function Home() {
 
   return (
     <div className="scroll-smooth">
-      <Header />
       <Hero />
-      <EventsSection events={events} />
+      <EventsSection events={events} showAllButton={true} />
+      <ServicesSection services={services} limit={6} showAllButton={true} />
       <Journal posts={journalPosts} showViewAllButton={true} />
-      <ServicesSection services={services} />
       <About />
       <Testimonials testimonials={testimonials} />
       <Contact />
-      <Footer />
     </div>
   );
 }

@@ -1,9 +1,10 @@
+// supabase.ts
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
 
 export type Database = {
   public: {
@@ -45,7 +46,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
-      }
+      },
       services: {
         Row: {
           id: string
@@ -80,7 +81,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
-      }
+      },
       blog_posts: {
         Row: {
           id: string
@@ -112,7 +113,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
-      }
+      },
       reviews: {
         Row: {
           id: string
@@ -146,6 +147,32 @@ export type Database = {
           approved?: boolean
           created_at?: string
           updated_at?: string
+        }
+      },
+      contact_messages: {
+        Row: {
+          id: string
+          created_at: string
+          name: string
+          email: string
+          subject: string
+          message: string
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          name: string
+          email: string
+          subject: string
+          message: string
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          name?: string
+          email?: string
+          subject?: string
+          message?: string
         }
       }
     }

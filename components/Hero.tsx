@@ -1,3 +1,6 @@
+'use client'
+import Link from 'next/link'
+
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -23,15 +26,19 @@ export default function Hero() {
           Experience Real Ghost Hunts Across the UK
         </h1>
         <p className="text-xl md:text-2xl mb-8 text-gray-300 max-w-2xl mx-auto leading-relaxed">
-          Join our team of paranormal experts on thrilling overnight investigations in the UK&aposs most haunted locations.
+          Join our team of paranormal experts on thrilling overnight investigations in the UK&apos;s most haunted locations.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-faded-gold text-black px-8 py-4 rounded-full text-lg font-semibold hover-glow transition-all duration-300">
-            Book an Event
-          </button>
-          <button className="border-2 border-faded-gold text-faded-gold px-8 py-4 rounded-full text-lg font-semibold hover:bg-faded-gold hover:text-black transition-all duration-300">
-            Watch Our Story
-          </button>
+          <Link href="/events">
+            <button className="bg-faded-gold text-black px-8 py-4 rounded-full text-lg font-semibold hover-glow transition-all duration-300">
+              Book an Event
+            </button>
+          </Link>
+          <Link href="/journal-section">
+            <button className="border-2 border-faded-gold text-faded-gold px-8 py-4 rounded-full text-lg font-semibold hover:bg-faded-gold hover:text-black transition-all duration-300">
+              Watch Our Story
+            </button>
+          </Link>
         </div>
       </div>
 

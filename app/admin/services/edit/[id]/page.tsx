@@ -126,7 +126,7 @@ export default function EditServicePage() {
       if (error) throw error
 
       await revalidatePaths(['/', '/services'])
-      router.push('/admin/services')
+      router.push('/admin/services/add')
     } catch (error: any) {
       console.error('Update error:', error)
       alert('Failed to update service: ' + error.message)
