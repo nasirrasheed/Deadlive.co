@@ -58,7 +58,7 @@ export default function ServicesSection({ services, showAllButton = true, limit 
                 <p className="text-gray-300 mb-6 leading-relaxed">{service.description}</p>
 
                 <div className="mb-6">
-                  <h4 className="font-semibold mb-3 text-faded-gold">What's Included:</h4>
+                  <h4 className="font-semibold mb-3 text-faded-gold">What&aposs Included:</h4>
                   <ul className="space-y-2">
                     {service.features.map((feature, index) => (
                       <li key={index} className="flex items-center gap-2 text-sm text-gray-400">
