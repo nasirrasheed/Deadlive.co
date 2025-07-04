@@ -8,7 +8,7 @@ const PrivacyPolicy: React.FC = () => {
 
       <p className="mb-4">
         Thank you for choosing to be part of our community at DeadLive Ltd, doing business as DeadLive Ltd
-        ("DeadLive Ltd", "we", "us", "our"). We are committed to protecting your personal information and your right
+        (&quot;DeadLive Ltd&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;). We are committed to protecting your personal information and your right
         to privacy. If you have any questions or concerns about our policy, or our practices with regards to your
         personal information, please contact us at <a className="text-blue-400 underline" href="mailto:jamesevents@live.com">jamesevents@live.com</a>.
       </p>
@@ -18,7 +18,7 @@ const PrivacyPolicy: React.FC = () => {
         <a className="text-blue-400 underline" href="https://www.deadlive.co.uk" target="_blank" rel="noopener noreferrer">
           www.deadlive.co.uk
         </a>
-        ), and/or any related services, sales, marketing or events (we refer to them collectively in this privacy policy as the "Sites").
+        ), and/or any related services, sales, marketing or events (we refer to them collectively in this privacy policy as the &quot;Sites&quot;).
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4 text-white">Table of Contents</h2>
@@ -47,10 +47,9 @@ const PrivacyPolicy: React.FC = () => {
       </ol>
 
       <div className="mt-8 space-y-8">
-        {/* Repeat for each section */}
         {[...Array(13)].map((_, i) => (
           <div id={`section${i + 1}`} key={i}>
-            <h3 className="text-xl font-semibold mb-2 text-white">{i + 1}. {[
+            <h3 className="text-xl font-semibold mb-2 text-white">{i + 1}. {[ 
               "WHAT INFORMATION DO WE COLLECT?",
               "HOW DO WE USE YOUR INFORMATION?",
               "WILL YOUR INFORMATION BE SHARED WITH ANYONE?",
@@ -66,7 +65,6 @@ const PrivacyPolicy: React.FC = () => {
               "HOW CAN YOU CONTACT US ABOUT THIS NOTICE?"
             ][i]}</h3>
             <p className="text-gray-300">
-              {/* Replace this line with actual section content as per your full content */}
               In Short: [Replace this with the real summary for section {i + 1}.]
             </p>
           </div>
