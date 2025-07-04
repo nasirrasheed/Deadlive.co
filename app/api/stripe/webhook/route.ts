@@ -2,51 +2,65 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-06-30.basil', // or omit this if not needed
+// ✅ Validate environment variables
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
+const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+
+if (!STRIPE_SECRET_KEY || !STRIPE_WEBHOOK_SECRET || !SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+  throw new Error('Missing required environment variables for Stripe or Supabase.');
+}
+
+// ✅ Initialize Stripe & Supabase
+const stripe = new Stripe(STRIPE_SECRET_KEY, {
+  apiVersion: '2025-06-30.basil', // ⚠️ Optional: check version compatibility
 });
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY! // Use service role key only in secure backend
-);
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 export async function POST(req: NextRequest) {
-  const buf = await req.text();
-  const sig = req.headers.get('stripe-signature') as string;
-
-  let event;
+  let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(
-      buf,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET!
-    );
+    const buf = await req.text();
+    const sig = req.headers.get('stripe-signature');
+
+    if (!sig) {
+      return new NextResponse('Missing Stripe signature', { status: 400 });
+    }
+
+    event = stripe.webhooks.constructEvent(buf, sig, STRIPE_WEBHOOK_SECRET);
   } catch (err) {
-    console.error('Webhook signature verification failed:', err);
-    return new NextResponse('Webhook error', { status: 400 });
+    console.error('❌ Webhook signature verification failed:', err);
+    return new NextResponse('Webhook signature verification failed', { status: 400 });
   }
 
-  // Handle the checkout.session.completed event
+  // ✅ Handle successful payment
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session;
 
-    const metadata = session.metadata;
+    try {
+      const metadata = session.metadata;
 
-    // Save to Supabase
-    const { error } = await supabase.from('bookings').insert({
-      user_email: session.customer_email,
-      event_id: metadata?.event_id, // you set this in metadata during checkout creation
-      amount_paid: session.amount_total! / 100,
-      stripe_checkout_id: session.id,
-    });
+      const { error } = await supabase.from('bookings').insert({
+        user_email: session.customer_email,
+        event_id: metadata?.event_id,
+        amount_paid: session.amount_total ? session.amount_total / 100 : null,
+        stripe_checkout_id: session.id,
+      });
 
-    if (error) {
-      console.error('Error inserting into DB:', error);
-      return new NextResponse('Failed to save booking', { status: 500 });
+      if (error) {
+        console.error('❌ Failed to insert booking:', error.message);
+        return new NextResponse('Database insert error', { status: 500 });
+      }
+
+      console.log('✅ Booking saved successfully.');
+    } catch (err) {
+      console.error('❌ Error handling session completion:', err);
+      return new NextResponse('Webhook processing failed', { status: 500 });
     }
   }
 
-  return new NextResponse('Received', { status: 200 });
+  return new NextResponse('✅ Webhook received', { status: 200 });
 }
